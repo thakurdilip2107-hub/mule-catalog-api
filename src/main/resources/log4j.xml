@@ -1,35 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<!--
-  mule-catalog-api | default-branch: main | SCENARIO: 2 appenders, both OLD pattern
-  Expected: SUCCESS — both patterns replaced
--->
+<!-- mule-catalog-api | main | OLD pattern x2 | Expected: SUCCESS -->
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-        <param name="Target" value="System.out"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %-5p [%t] %c - %m%n"/>
+            <PatternLayout pattern="%d %-5p [%t] %c - %m%n"/>
         </layout>
     </appender>
-
     <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-        <param name="File"           value="${app.home}/logs/mule-catalog-api.log"/>
-        <param name="MaxFileSize"    value="10MB"/>
-        <param name="MaxBackupIndex" value="5"/>
+        <param name="File" value="${app.home}/logs/mule-catalog-api.log"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %-5p [%t] %c - %m%n"/>
+            <PatternLayout pattern="%d %-5p [%t] %c - %m%n"/>
         </layout>
     </appender>
-
-    <logger name="com.example.mule.catalog" additivity="false">
-        <level value="DEBUG"/>
-        <appender-ref ref="FILE"/>
-    </logger>
-
-    <root>
-        <priority value="INFO"/>
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-    </root>
+    <root><priority value="INFO"/><appender-ref ref="CONSOLE"/><appender-ref ref="FILE"/></root>
 </log4j:configuration>
