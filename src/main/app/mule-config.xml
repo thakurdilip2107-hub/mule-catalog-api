@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+          http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <http:listener-config name="HTTP_Listener" host="0.0.0.0" port="8092"/>
+    <flow name="getProductFlow">
+        <http:listener config-ref="HTTP_Listener" path="/api/catalog/products/{sku}"/>
+        <logger message="Looking up product #[flowVars.sku]" level="INFO"/>
+        <set-payload value='{"sku":"#[flowVars.sku]","name":"Widget","price":9.99}'/>
+    </flow>
+    <flow name="searchProductsFlow">
+        <http:listener config-ref="HTTP_Listener" path="/api/catalog/products"/>
+        <logger message="Searching products" level="INFO"/>
+        <set-payload value='{"results":[]}'/>
+    </flow>
+</mule>
